@@ -143,7 +143,8 @@ export default function Ledger(params) {
             </tr>
           </thead>
           <tbody>
-            {listData?.ledgerEntries?.map((item, index) => (
+          {listData?.ledgerEntries?.length > 0 && (
+             listData?.ledgerEntries?.map((item, index) => (
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td className="px-6 py-4">{item?.LedgerId}</td>
                 <td className="px-6 py-4">{item?.UserId}</td>
@@ -186,9 +187,16 @@ export default function Ledger(params) {
                   </div>
                 </td>
               </tr>
-            ))}
+            ))
+          )}
+           
           </tbody>
         </table>
+        {listData?.ledgerEntries?.length === 0 && (
+          <p className="text-center text-2xl font-bold text-gray-500">
+            No data found
+          </p>
+        )}
       </div>
 
       <DeleteModal

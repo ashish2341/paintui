@@ -44,21 +44,7 @@ export default function Coupon(params) {
   //console.log("listData", listData);
   console.log("Coupon params data", params)
 
-  // useEffect(()=>{
-  //   console.log("Coupon params data useeffect", params)
-  //   if (params?.searchParams?.id) {
 
-  //     setPayLoad((prev) => ({
-  //       ...prev,
-  //       retailersCoupon: Array.isArray(prev.retailersCoupon)
-  //         ? prev.retailersCoupon.includes(params.searchParams.id)
-  //           ? prev.retailersCoupon
-  //           : [...prev.retailersCoupon, params.searchParams.id]
-  //         : [params.searchParams.id],
-  //     }));
-  //     //console.log("Set payload function completed")
-  //   }
-  // },[params])
 
   useEffect(() => {
     console.log("params data", params?.searchParams?.id)
@@ -340,7 +326,8 @@ export default function Coupon(params) {
             </tr>
           </thead>
           <tbody>
-            {listData?.coupons?.map((item, index) => (
+          {listData?.coupons?.length > 0 && (
+             listData?.coupons?.map((item, index) => (
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 
                 <td className="px-6 py-4">{item?.CouponCode}</td>
@@ -432,9 +419,16 @@ export default function Coupon(params) {
                   </div>
                 </td>
               </tr>
-            ))}
+            ))
+          )}
+           
           </tbody>
         </table>
+        {listData?.coupons?.length === 0 && (
+          <p className="text-center text-2xl font-bold text-gray-500">
+            No data found
+          </p>
+        )}
       </div>
 
       <div className="mt-4">

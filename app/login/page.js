@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import Styles from "../../page.module.css"
+import Styles from "../page.module.css"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LoginAdmin } from "@/apiFunction/auth/auth";

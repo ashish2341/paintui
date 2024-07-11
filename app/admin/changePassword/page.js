@@ -77,7 +77,7 @@ export default function Password(params) {
     Cookies.remove("firstName");
     Cookies.remove("lastName");
     Cookies.remove("phone");
-    router.push("/")
+    router.push("/login")
       return false;
     } else {
       toast.error(updateUserData?.errMessage);

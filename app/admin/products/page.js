@@ -16,7 +16,7 @@ import { ToastContainer, toast } from "react-toastify";
 import FilterModal from "@/components/common/filterModal";
 //import Cookies from "js-cookie";
 
-export default function Property() {
+export default function Product() {
   //   const roleData = Cookies.get("roles") ?? "";
   //   const name = Cookies.get("name");
   //   const roles = roleData && JSON.parse(roleData);
@@ -207,9 +207,7 @@ export default function Property() {
             </div>
           </div>
         </div>
-        {listData?.products?.length === 0 ? (
-          <p className="text-center text-gray-500">No product found</p>
-        ) : (
+       
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
@@ -231,7 +229,8 @@ export default function Property() {
               </tr>
             </thead>
             <tbody>
-              {listData?.products?.map((item, index) => (
+            {listData?.products?.length > 0 && (
+              listData?.products?.map((item, index) => (
                 <tr
                   key={index}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -295,10 +294,17 @@ export default function Property() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              ))
+            )}
+              
             </tbody>
           </table>
+          {listData?.products?.length === 0 && (
+          <p className="text-center text-2xl font-bold text-gray-500">
+            No data found
+          </p>
         )}
+        
       </div>
 
       <div className="mt-4">

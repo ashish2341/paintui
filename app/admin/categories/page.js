@@ -154,105 +154,112 @@ export default function Category() {
             </tr>
           </thead>
           <tbody>
-            {listData?.categories?.map((item, index) => (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="px-6 py-4">{item?.Name}</td>
-                <td className="px-6 py-4">{item?.createdAt?.slice(0, 10)}</td>
-                <td className="px-6 py-4">{item?.updatedAt?.slice(0, 10)}</td>
-
-                {/* <td className="px-6 py-4 text-blue-600 dark:text-blue-500">
-                    <i
-                      className={` ${
-                        item?.IsEnabled
-                          ? "bi bi-hand-thumbs-up-fill text-green-600	"
-                          : "bi bi-hand-thumbs-down-fill text-red-500"
-                      } `}
-                      style={{ fontSize: "24px" }}
-                    ></i>
+          {listData?.categories?.length > 0 && (
+              listData?.categories?.map((item, index) => (
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <td className="px-6 py-4">{item?.Name}</td>
+                  <td className="px-6 py-4">{item?.createdAt?.slice(0, 10)}</td>
+                  <td className="px-6 py-4">{item?.updatedAt?.slice(0, 10)}</td>
+  
+                  {/* <td className="px-6 py-4 text-blue-600 dark:text-blue-500">
+                      <i
+                        className={` ${
+                          item?.IsEnabled
+                            ? "bi bi-hand-thumbs-up-fill text-green-600	"
+                            : "bi bi-hand-thumbs-down-fill text-red-500"
+                        } `}
+                        style={{ fontSize: "24px" }}
+                      ></i>
+                    </td>
+                
+                  {roles.includes("Admin") && (
+                    <td className="px-6 py-4 text-blue-600 dark:text-blue-500">
+                      <i
+                        className={` ${
+                          item.IsFeatured
+                            ? "bi bi-hand-thumbs-up-fill text-green-600	"
+                            : "bi bi-hand-thumbs-down-fill text-red-500"
+                        } `}
+                        style={{ fontSize: "24px" }}
+                      ></i>
+                    </td>
+                  )}
+                  {roles.includes("Developer") && (
+                    <td className="px-6 py-4 text-black-600 dark:text-black-500 ">
+                      { item?.IsEnabled ? (<span>Completed</span> ) :<span>Pending</span>}
+                   
                   </td>
-              
-                {roles.includes("Admin") && (
-                  <td className="px-6 py-4 text-blue-600 dark:text-blue-500">
-                    <i
-                      className={` ${
-                        item.IsFeatured
-                          ? "bi bi-hand-thumbs-up-fill text-green-600	"
-                          : "bi bi-hand-thumbs-down-fill text-red-500"
-                      } `}
-                      style={{ fontSize: "24px" }}
-                    ></i>
-                  </td>
-                )}
-                {roles.includes("Developer") && (
-                  <td className="px-6 py-4 text-black-600 dark:text-black-500 ">
-                    { item?.IsEnabled ? (<span>Completed</span> ) :<span>Pending</span>}
-                 
-                </td>
-                )} */}
-                <td className="px-6 py-4">
-                  <div className="flex items-center space-x-2">
-                  {item?.IsActive ? (
+                  )} */}
+                  <td className="px-6 py-4">
+                    <div className="flex items-center space-x-2">
+                    {item?.IsActive ? (
+                        <Link
+                          href={`/property/${item._id}`}
+                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        >
+                          <i
+                            className="bi bi-pencil-square"
+                            style={{ fontSize: "1.5em" }}
+                          ></i>
+                        </Link>
+                      ) : (
+                        <button
+                          disabled
+                          className="font-medium text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                        >
+                          <i
+                            className="bi bi-pencil-square"
+                            style={{ fontSize: "1.5em" }}
+                          ></i>
+                        </button>
+                      )}
+  
+                      {/* <Link
+                        href="#"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        <div className="flex items-center space-x-2">
+                          <label className="inline-flex items-center mb-0.5 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              onChange={() =>
+                                toggleChange(item?.CategoryId, item?.IsActive)
+                              }
+                               checked={item?.IsActive}
+                            />
+                          </label>
+                        </div>
+                      </Link> */}
+  
+                      <Switch
+                        onChange={() =>
+                          toggleChange(item?.CategoryId, item?.IsActive)
+                        }
+                        checked={item?.IsActive}
+                      />
+  
                       <Link
-                        href={`/property/${item._id}`}
+                        href="#"
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         <i
-                          className="bi bi-pencil-square"
-                          style={{ fontSize: "1.5em" }}
+                          onClick={() => deleteCategoryModal(item.CategoryId)}
+                          className="bi bi-trash-fill"
+                          style={{ color: "red", fontSize: "1.5em" }}
                         ></i>
                       </Link>
-                    ) : (
-                      <button
-                        disabled
-                        className="font-medium text-gray-400 dark:text-gray-500 cursor-not-allowed"
-                      >
-                        <i
-                          className="bi bi-pencil-square"
-                          style={{ fontSize: "1.5em" }}
-                        ></i>
-                      </button>
-                    )}
+                    </div>
+                  </td>
+                </tr>
+              ))
+          )}
 
-                    {/* <Link
-                      href="#"
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <label className="inline-flex items-center mb-0.5 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            onChange={() =>
-                              toggleChange(item?.CategoryId, item?.IsActive)
-                            }
-                             checked={item?.IsActive}
-                          />
-                        </label>
-                      </div>
-                    </Link> */}
-
-                    <Switch
-                      onChange={() =>
-                        toggleChange(item?.CategoryId, item?.IsActive)
-                      }
-                      checked={item?.IsActive}
-                    />
-
-                    <Link
-                      href="#"
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      <i
-                        onClick={() => deleteCategoryModal(item.CategoryId)}
-                        className="bi bi-trash-fill"
-                        style={{ color: "red", fontSize: "1.5em" }}
-                      ></i>
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            ))}
+          
           </tbody>
         </table>
+        {listData?.categories?.length === 0 && (
+
+          <p className="text-center text-2xl font-bold text-gray-500">No data found</p>)}
       </div>
 
       <div className="mt-4">
