@@ -62,7 +62,7 @@ export default function AddLedger() {
     console.log("register data",data);
     const LedgerDetails={
       EntryType: data.entryType,
-      RatailerUserId: users.value,
+      RetailerUserId: users.value,
       Amount: data.amount,
       
     }
