@@ -64,16 +64,16 @@ export default function AddLedger() {
       EntryType: data.entryType,
       RetailerUserId: users.value,
       Amount: data.amount,
-      
+      Note : data.note
     }
     console.log("LedgerDetails",LedgerDetails)
     let res = await addLedger(LedgerDetails)
     console.log("Response data", res);
-     if(!res?.message){
+     if(res?.success){
        router.push("/admin/ledger");
        toast.success("Ledger Added Successfully");
       }else{
-        toast.error(res?.resData?.message);
+        toast.error(res?.resData?.errMessage);
         return false;
       }
   };
@@ -95,18 +95,38 @@ export default function AddLedger() {
       </Link>
       <form className="mb-5" onSubmit={handleSubmit(submitForm)}>
       <div className="grid gap-4 mb-4 md:grid-cols-2">
-        <div className="w-full">
-          <label htmlFor="entryType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Entry Type <span className="text-red-600">*</span>
-          </label>
+      <div className="mb-4">
+        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          Entry Type <span className="text-red-600">*</span>
+        </label>
+        <div className="flex">
+        
+        <div className="flex items-center mb-2">
           <input
-            type="text"
-            id="entryType"
+            type="radio"
+            id="entryType1"
+            value="Credit"
             {...register('entryType', { required: 'Entry Type is required' })}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Entry Type"
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
-          {errors.entryType && <span className="text-red-500">{errors.entryType.message}</span>}
+          <label htmlFor="entryType1" className="ml-2  mr-4  text-sm font-medium text-gray-900 dark:text-gray-300">
+            Credit
+          </label>
+        </div>
+        <div className="flex items-center mb-2">
+          <input
+            type="radio"
+            id="entryType2"
+            value="Debit"
+            {...register('entryType', { required: 'Entry Type is required' })}
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label htmlFor="entryType2" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Debit
+          </label>
+        </div>
+        {errors.entryType && <span className="text-red-500">{errors.entryType.message}</span>}
+      </div>
         </div>
 
         <div className="w-full">
@@ -154,6 +174,21 @@ export default function AddLedger() {
         />
         {errors.users && <span className="text-red-600">This field is required</span>}
       </div>
+
+      <div className="w-full">
+            <label htmlFor="note" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Note 
+            </label>
+            <textarea
+              id="note"
+              {...register('note', { required: false })}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Enter your note"
+              rows="4"
+            ></textarea>
+            {errors.narration && <span className="text-red-500">{errors.narration.message}</span>}
+          </div>
+
         
       </div>
 
@@ -161,15 +196,6 @@ export default function AddLedger() {
     </form>
 
 
-      {/* <div>
-        <button
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          type="button"
-          onClick={submitForm}
-        >
-          Submit
-        </button>
-      </div> */}
     </section>
   );
 }
